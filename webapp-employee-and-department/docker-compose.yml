@@ -1,0 +1,18 @@
+version: '2.1'
+services: 
+    angular-service:
+      container_name: ng-employee-and-department  
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      ports: 
+        - '80:80' 
+      networks:
+        employee-and-department-network:
+          aliases:
+            - webapp
+
+networks:
+  employee-and-department-network:
+    external:
+      name: employee-and-department-network
