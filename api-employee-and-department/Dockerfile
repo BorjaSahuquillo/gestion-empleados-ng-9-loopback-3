@@ -13,8 +13,13 @@ RUN npm install
 COPY --chown=node:node . .
 
 ENV NODE_ENV=development
-
-ENV HOST=0.0.0.0 PORT=3000
+ENV HOST=0.0.0.0
+ENV PORT=3000
+ENV DB_HOST=localhost
+ENV DB_PORT=27017
+ENV DB_NAME=employee-and-department
+ENV DB_USER=db-user
+ENV DB_PASSWORD=12341234
 
 EXPOSE 3000
 

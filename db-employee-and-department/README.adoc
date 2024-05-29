@@ -1,0 +1,6 @@
+
+== Run
+
+docker run --add-host host.docker.internal:host-gateway -p 27017:27017 ghcr.io/eruiz/axebow-service-application-db:1.0.0
+
+
