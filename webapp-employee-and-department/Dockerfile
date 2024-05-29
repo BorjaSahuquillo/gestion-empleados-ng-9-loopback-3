@@ -29,4 +29,6 @@ RUN rm -rf /usr/share/nginx/html/*
 ## From 'compile-image' stage copy over the artifacts in dist folder to default nginx public folder
 COPY --from=compile-image /ng-app/dist/webapp-employee-and-department /usr/share/nginx/html
 
+EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
