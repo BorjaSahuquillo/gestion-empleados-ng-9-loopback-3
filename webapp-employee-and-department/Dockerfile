@@ -20,6 +20,12 @@ RUN npm run build -- --prod
 
 FROM nginx:1.21-alpine
 
+ENV BASE_URL="http://127.0.0.1:3000/api"
+
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
+
 ## Copy our nginx config
 COPY nginx.conf /etc/nginx/conf.d/
 
@@ -29,6 +35,13 @@ RUN rm -rf /usr/share/nginx/html/*
 ## From 'compile-image' stage copy over the artifacts in dist folder to default nginx public folder
 COPY --from=compile-image /ng-app/dist/webapp-employee-and-department /usr/share/nginx/html
 
+COPY ./entrypoint.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/entrypoint.sh"]
+
+#
+#CMD ["nginx", "-g", "daemon off;"]

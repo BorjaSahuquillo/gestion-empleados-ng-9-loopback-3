@@ -6,7 +6,6 @@ import { Employee } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    private baseUrl = environment.baseUrl;
     private endpoint = 'Users';
 
     constructor(private httpClient: HttpClient) {
@@ -14,12 +13,12 @@ export class UserService {
     }
 
     public login(credentials) {
-        return this.httpClient.post(`${this.baseUrl}/${this.endpoint}/login`, credentials)
+        return this.httpClient.post(`${environment.baseUrl}/${this.endpoint}/login`, credentials)
             .pipe(map((data: any) => data));
     }
 
     public logout() {
-        return this.httpClient.post(`${this.baseUrl}/${this.endpoint}/logout`, null)
+        return this.httpClient.post(`${environment.baseUrl}/${this.endpoint}/logout`, null)
             .pipe(map((data: any) => data));
     }
 

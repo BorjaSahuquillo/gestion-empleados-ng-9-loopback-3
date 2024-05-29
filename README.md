@@ -10,9 +10,9 @@ Proyecto realizado como prueba técnica. Se trata de una aplicación web que per
 
 Con los node modules instalados vamos a la carpeta raíz del proyecto y ejecutamos el siguiente comando:
 
-```bash docker network create employee-and-department-network```
+```docker network create employee-and-department-network```
 
-```bash docker-compose up -d```
+```docker-compose up -d```
 
 **Nota**: El web app con nginx, al refrescar con una ruta específica da un problema con el nginx, no he podido solucionarlo, está localizado en la configuración del nginx. Se puede levantar, con un npm run start para comprobar que el reload funciona correctamente.
 

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { ConfigService } from './config.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,13 @@ import { AuthGuard } from './shared/guards/auth.guard';
       useClass: AuthInterceptor,
       multi: true
     },
-    AuthGuard
+    AuthGuard,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (configService: ConfigService) => async () => await configService.load(),
+      deps: [ConfigService],
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })
