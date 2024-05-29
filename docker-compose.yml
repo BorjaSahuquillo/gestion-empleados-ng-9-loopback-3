@@ -5,7 +5,7 @@ services:
       image: mongo:3.6.23-xenial
       restart: always   
       ports:
-        - "37017:27017"
+        - "27017:27017"
       volumes:
         - mongo-data:/data/db
         - ./db-employee-and-department/entrypoint/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
@@ -18,10 +18,13 @@ services:
         interval: 5s
         timeout: 5s
         retries: 12
-      networks:
-        employee-and-department-network:
-          aliases:
-            - db
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+
+#      networks:
+#        employee-and-department-network:
+#          aliases:
+#            - db
 
     api:
       container_name: api
@@ -32,13 +35,21 @@ services:
       restart: always
       ports:
         - "3000:3000"
-      networks:
-        employee-and-department-network:
-          aliases:
-            - api
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+      environment:
+        - DB_HOST=database
+        - DB_PORT=27017
+        - DB_NAME=employee-and-department
+        - DB_USER=db-user
+        - DB_PASSWORD=12341234
 
-      volumes:
-        - ./api-employee-and-department:/app
+#      networks:
+#        employee-and-department-network:
+#          aliases:
+#            - api
+#      volumes:
+#        - ./api-employee-and-department:/app
     
     angular-service:
       container_name: ng-employee-and-department
@@ -47,16 +58,18 @@ services:
         dockerfile: ./Dockerfile
       ports: 
         - '80:80'
-      networks:
-        employee-and-department-network:
-          aliases:
-            - webapp
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+#      networks:
+#        employee-and-department-network:
+#          aliases:
+#            - webapp
 
 volumes:
   mongo-data:
     name: mongo-data
 
-networks:
-  employee-and-department-network:
-    name: employee-and-department-network
-    external: true
+#networks:
+#  employee-and-department-network:
+#    name: employee-and-department-network
+#    external: true

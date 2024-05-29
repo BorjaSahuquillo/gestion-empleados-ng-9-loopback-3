@@ -7,12 +7,14 @@ services:
         dockerfile: ./Dockerfile
       ports: 
         - '80:80' 
-      networks:
-        employee-and-department-network:
-          aliases:
-            - webapp
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+#      networks:
+#        employee-and-department-network:
+#          aliases:
+#            - webapp
 
-networks:
-  employee-and-department-network:
-    external:
-      name: employee-and-department-network
+#networks:
+#  employee-and-department-network:
+#    external:
+#      name: employee-and-department-network
