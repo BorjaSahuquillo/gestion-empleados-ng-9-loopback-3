@@ -1,28 +1,61 @@
-# WebappEmployeeAndDepartment
+= WebappEmployeeAndDepartment
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9.
 
-## 
+== Build
 
+[source]
+----
+# Build command pattern: docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+#
+# Example: Build to publish in GitHub Packages.
+
+docker build -t ghcr.io/[NAMESPACE]/axebow-service-application-frontend:1.0.0 .
+----
+
+== Publish
+
+Publish the container image to the Container registry.
+
+[source]
+----
+# Authenticate to the Container registry.
+# 
+# Example: If you use GitHub Packages, use a personal access token
+
+echo [GITHUB_TOKEN] | docker login ghcr.io -u [USERNAME] --password-stdin
+
+# Example: Push the container image to the Container registry
+
+docker push ghcr.io/[NAMESPACE]/axebow-service-application-frontend:1.0.0
+----
+
+Replace `[GITHUB_TOKEN]` with your personal token. Note, `the GITHUB_TOKEN` must be granted with: _repo_, _write:packages_, _read:packages_ and _delete:packages_ permissions.
+
+== Run 
+
+[source]
+----
 docker run --add-host host.docker.internal:host-gateway -p 80:80 -e "BASE_URL=http://localhost:3000/api" ghcr.io/eruiz/axebow-service-application-frontend:1.0.0
+----
 
-## Development server
+== Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+== Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+== Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+== Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+== Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
